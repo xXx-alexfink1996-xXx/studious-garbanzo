@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://pw7x5sjnbmsf"]
+
+[ext_resource type="Script" uid="uid://dl2rp83f5yfy6" path="res://state_machines/_state_machine_combat.gd" id="1_5l411"]
+[ext_resource type="Script" uid="uid://b7jqr8ox7drc5" path="res://state_machines/states/state_class_combat/state_shoot.gd" id="2_57yve"]
+[ext_resource type="Script" uid="uid://bedtmji4kqwga" path="res://state_machines/states/state_class_combat/state_shield_activated.gd" id="3_j5pas"]
+[ext_resource type="Script" uid="uid://bgumuhefrasmm" path="res://state_machines/states/state_class_combat/state_idle_combat.gd" id="4_s1uhv"]
+
+[node name="CombatStateMachine" type="Node" node_paths=PackedStringArray("starting_state")]
+script = ExtResource("1_5l411")
+starting_state = NodePath("IdleCombat")
+
+[node name="Shoot" type="Node" parent="."]
+script = ExtResource("2_57yve")
+metadata/_custom_type_script = "uid://bhsns28inajb0"
+
+[node name="Shield" type="Node" parent="."]
+script = ExtResource("3_j5pas")
+metadata/_custom_type_script = "uid://bhsns28inajb0"
+
+[node name="IdleCombat" type="Node" parent="."]
+script = ExtResource("4_s1uhv")

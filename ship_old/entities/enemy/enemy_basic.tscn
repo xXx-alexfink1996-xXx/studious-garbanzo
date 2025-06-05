@@ -1,0 +1,99 @@
+[gd_scene load_steps=20 format=3 uid="uid://cc3vkfkv0mmpm"]
+
+[ext_resource type="Texture2D" uid="uid://dmpmna5h0cjw2" path="res://src/images/enemy/enemy_ship_basic.png" id="1_7l0j1"]
+[ext_resource type="Script" uid="uid://choj0qrjs3lq7" path="res://entities/enemy/enemy_basic.gd" id="1_rtar3"]
+[ext_resource type="Texture2D" uid="uid://d0dogr5om17ve" path="res://src/images/EXPLOSION.png" id="2_d13ic"]
+[ext_resource type="PackedScene" uid="uid://hj13rnulyjnd" path="res://entities/bullets/enemy_bullet.tscn" id="2_utjig"]
+[ext_resource type="PackedScene" uid="uid://dp46jnioib3kp" path="res://state_machines/state_machine.tscn" id="3_ioxy8"]
+[ext_resource type="Script" uid="uid://cv4bcvjbdr7ec" path="res://state_machines/states/state_class_movement/state_idle_movement.gd" id="4_ioxy8"]
+[ext_resource type="Script" uid="uid://dbxc242cvtva1" path="res://state_machines/_state_machine_movement.gd" id="4_xofhs"]
+[ext_resource type="Script" uid="uid://bbdnnau7avji1" path="res://state_machines/components/component_movement_enemy.gd" id="5_4e112"]
+[ext_resource type="Script" uid="uid://dirpu1q4p60if" path="res://state_machines/states/state_class_movement/state_move.gd" id="5_xofhs"]
+[ext_resource type="Script" uid="uid://cboxnkx6fejsa" path="res://state_machines/components/component_data_store.gd" id="8_4e112"]
+[ext_resource type="PackedScene" uid="uid://pw7x5sjnbmsf" path="res://state_machines/combat_state_machine.tscn" id="8_cxhj6"]
+[ext_resource type="Script" uid="uid://bgumuhefrasmm" path="res://state_machines/states/state_class_combat/state_idle_combat.gd" id="9_apvu1"]
+[ext_resource type="Script" uid="uid://u06a61ag6t0u" path="res://state_machines/components/component_shoot_enemy.gd" id="10_5ba26"]
+[ext_resource type="Script" uid="uid://b7jqr8ox7drc5" path="res://state_machines/states/state_class_combat/state_shoot.gd" id="10_5mo4i"]
+[ext_resource type="Script" uid="uid://brclr1hukh1wx" path="res://state_machines/components/component_shield_enemy.gd" id="14_fkmwd"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6hm23"]
+atlas = ExtResource("2_d13ic")
+region = Rect2(0, 0, 20, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e8r5q"]
+atlas = ExtResource("1_7l0j1")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_725u4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6hm23")
+}],
+"loop": true,
+"name": &"explode",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e8r5q")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3ji4g"]
+size = Vector2(18, 18)
+
+[node name="EnemyBasic" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_rtar3")
+bullet = ExtResource("2_utjig")
+
+[node name="SpriteAnimations" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_725u4")
+animation = &"explode"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_3ji4g")
+
+[node name="MovementStateMachine" parent="." node_paths=PackedStringArray("starting_state") instance=ExtResource("3_ioxy8")]
+script = ExtResource("4_xofhs")
+starting_state = NodePath("Move")
+
+[node name="IdleMovement" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("move_state")]
+script = ExtResource("4_ioxy8")
+move_state = NodePath("../Move")
+animation_name = "idle"
+metadata/_custom_type_script = "uid://tjubtad5vc48"
+
+[node name="Move" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("idle_state")]
+script = ExtResource("5_xofhs")
+idle_state = NodePath("../IdleMovement")
+animation_name = "idle"
+metadata/_custom_type_script = "uid://tjubtad5vc48"
+
+[node name="CombatStateMachine" parent="." instance=ExtResource("8_cxhj6")]
+
+[node name="IdleCombat2" type="Node" parent="CombatStateMachine"]
+script = ExtResource("9_apvu1")
+
+[node name="Shoot2" type="Node" parent="CombatStateMachine" node_paths=PackedStringArray("idle_state")]
+script = ExtResource("10_5mo4i")
+idle_state = NodePath("../IdleCombat2")
+
+[node name="ComponentMovementEnemy" type="Node" parent="." node_paths=PackedStringArray("parent")]
+script = ExtResource("5_4e112")
+parent = NodePath("..")
+
+[node name="ComponentShootEnemy" type="Node" parent="."]
+script = ExtResource("10_5ba26")
+
+[node name="ComponentShieldEnemy" type="Node" parent="."]
+script = ExtResource("14_fkmwd")
+
+[node name="ComponentDataStore" type="Node" parent="."]
+script = ExtResource("8_4e112")

@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://dfktssr5xtdio"]
+
+[ext_resource type="Script" uid="uid://dbxc242cvtva1" path="res://state_machines/_state_machine_movement.gd" id="1_e6ml7"]
+[ext_resource type="Script" uid="uid://cv4bcvjbdr7ec" path="res://state_machines/states/state_class_movement/state_idle_movement.gd" id="2_06eps"]
+[ext_resource type="Script" uid="uid://dirpu1q4p60if" path="res://state_machines/states/state_class_movement/state_move.gd" id="3_7h8ue"]
+
+[node name="MovementStateMachine2" type="Node"]
+script = ExtResource("1_e6ml7")
+
+[node name="IdleMovement" type="Node" parent="."]
+script = ExtResource("2_06eps")
+
+[node name="Move" type="Node" parent="."]
+script = ExtResource("3_7h8ue")

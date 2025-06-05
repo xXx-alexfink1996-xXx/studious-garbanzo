@@ -1,0 +1,191 @@
+[gd_scene load_steps=31 format=3 uid="uid://cyj4pbojobbjf"]
+
+[ext_resource type="Texture2D" uid="uid://bxskmvtwu5dwi" path="res://src/images/player/player_ship.png" id="1_3vyb7"]
+[ext_resource type="Script" uid="uid://j556egduwjkf" path="res://entities/player/player.gd" id="1_g2els"]
+[ext_resource type="PackedScene" uid="uid://dre0qhgw33g11" path="res://entities/bullets/player_bullet.tscn" id="2_gx6sm"]
+[ext_resource type="PackedScene" uid="uid://dfktssr5xtdio" path="res://state_machines/movement_state_machine.tscn" id="3_fkugw"]
+[ext_resource type="Texture2D" uid="uid://d0dogr5om17ve" path="res://src/images/EXPLOSION.png" id="3_yqrof"]
+[ext_resource type="PackedScene" uid="uid://pw7x5sjnbmsf" path="res://state_machines/combat_state_machine.tscn" id="4_8fjmc"]
+[ext_resource type="Script" uid="uid://cv4bcvjbdr7ec" path="res://state_machines/states/state_class_movement/state_idle_movement.gd" id="4_dqkch"]
+[ext_resource type="Script" uid="uid://dirpu1q4p60if" path="res://state_machines/states/state_class_movement/state_move.gd" id="5_qlg0r"]
+[ext_resource type="Script" uid="uid://bqfpix2lgkpp7" path="res://state_machines/components/component_movement_player.gd" id="6_8fjmc"]
+[ext_resource type="Script" uid="uid://b7jqr8ox7drc5" path="res://state_machines/states/state_class_combat/state_shoot.gd" id="7_bectd"]
+[ext_resource type="Script" uid="uid://bedtmji4kqwga" path="res://state_machines/states/state_class_combat/state_shield_activated.gd" id="8_wvtmh"]
+[ext_resource type="Script" uid="uid://bgumuhefrasmm" path="res://state_machines/states/state_class_combat/state_idle_combat.gd" id="9_wvtmh"]
+[ext_resource type="Script" uid="uid://c6d0647oac60t" path="res://state_machines/states/state_class_combat/state_shield_active.gd" id="10_j3ovn"]
+[ext_resource type="Script" uid="uid://clc7tlotdtwue" path="res://state_machines/components/component_combat_player.gd" id="11_7thud"]
+[ext_resource type="Script" uid="uid://2gf2ccvyuyu3" path="res://state_machines/states/state_class_combat/state_shield_deactivated.gd" id="11_afbqv"]
+[ext_resource type="Script" uid="uid://cboxnkx6fejsa" path="res://state_machines/components/component_data_store.gd" id="14_afbqv"]
+[ext_resource type="Script" uid="uid://by08jbh30ax5d" path="res://state_machines/components/component_shoot_player.gd" id="16_3wlsy"]
+[ext_resource type="Script" uid="uid://dru3juvwo4341" path="res://state_machines/components/component_shield_player.gd" id="17_b2kln"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b2kln"]
+atlas = ExtResource("3_yqrof")
+region = Rect2(0, 0, 20, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g2els"]
+atlas = ExtResource("1_3vyb7")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wvtmh"]
+atlas = ExtResource("1_3vyb7")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7thud"]
+atlas = ExtResource("1_3vyb7")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a1qjk"]
+atlas = ExtResource("1_3vyb7")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j3ovn"]
+atlas = ExtResource("1_3vyb7")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_afbqv"]
+atlas = ExtResource("1_3vyb7")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gx6sm"]
+atlas = ExtResource("1_3vyb7")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yqrof"]
+atlas = ExtResource("1_3vyb7")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3wlsy"]
+atlas = ExtResource("1_3vyb7")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qhqgy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b2kln")
+}],
+"loop": true,
+"name": &"explode",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g2els")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wvtmh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7thud")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a1qjk")
+}],
+"loop": false,
+"name": &"shield_activated",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j3ovn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_afbqv")
+}],
+"loop": true,
+"name": &"shield_active",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gx6sm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yqrof")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3wlsy")
+}],
+"loop": false,
+"name": &"shield_deactivated",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g2els"]
+size = Vector2(14, 11)
+
+[node name="player" type="CharacterBody2D" groups=["Player"]]
+collision_mask = 2
+script = ExtResource("1_g2els")
+bullet = ExtResource("2_gx6sm")
+
+[node name="SpriteAnimations" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_qhqgy")
+animation = &"explode"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_g2els")
+
+[node name="MovementStateMachine2" parent="." node_paths=PackedStringArray("starting_state") instance=ExtResource("3_fkugw")]
+starting_state = NodePath("IdleMovement2")
+
+[node name="IdleMovement2" type="Node" parent="MovementStateMachine2" node_paths=PackedStringArray("move_state")]
+script = ExtResource("4_dqkch")
+move_state = NodePath("../Move2")
+animation_name = "none"
+
+[node name="Move2" type="Node" parent="MovementStateMachine2" node_paths=PackedStringArray("idle_state")]
+script = ExtResource("5_qlg0r")
+idle_state = NodePath("../IdleMovement2")
+animation_name = "none"
+
+[node name="CombatStateMachine" parent="." node_paths=PackedStringArray("starting_state") instance=ExtResource("4_8fjmc")]
+starting_state = NodePath("IdleCombat2")
+
+[node name="IdleCombat2" type="Node" parent="CombatStateMachine"]
+script = ExtResource("9_wvtmh")
+animation_name = "idle"
+
+[node name="Shoot2" type="Node" parent="CombatStateMachine" node_paths=PackedStringArray("idle_state")]
+script = ExtResource("7_bectd")
+idle_state = NodePath("../IdleCombat2")
+animation_name = "none"
+
+[node name="ShieldActivated" type="Node" parent="CombatStateMachine" node_paths=PackedStringArray("shield_active_state", "shield_deactivated_state")]
+script = ExtResource("8_wvtmh")
+shield_active_state = NodePath("../ShieldActive")
+shield_deactivated_state = NodePath("../ShieldDeactivated")
+animation_name = "shield_activated"
+
+[node name="ShieldActive" type="Node" parent="CombatStateMachine" node_paths=PackedStringArray("shield_deactivated_state")]
+script = ExtResource("10_j3ovn")
+shield_deactivated_state = NodePath("../ShieldDeactivated")
+animation_name = "shield_active"
+
+[node name="ShieldDeactivated" type="Node" parent="CombatStateMachine" node_paths=PackedStringArray("idle_state", "shield_activated_state")]
+script = ExtResource("11_afbqv")
+idle_state = NodePath("../IdleCombat2")
+shield_activated_state = NodePath("../ShieldActivated")
+animation_name = "shield_deactivated"
+
+[node name="ComponentMovementPlayer" type="Node" parent="."]
+script = ExtResource("6_8fjmc")
+
+[node name="ComponentDataStore" type="Node" parent="."]
+script = ExtResource("14_afbqv")
+
+[node name="ComponentShootPlayer" type="Node" parent="."]
+script = ExtResource("16_3wlsy")
+
+[node name="ComponentShieldPlayer" type="Node" parent="."]
+script = ExtResource("17_b2kln")
+
+[node name="ComponentCombatPlayer" type="Node" parent="."]
+script = ExtResource("11_7thud")

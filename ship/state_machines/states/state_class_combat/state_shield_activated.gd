@@ -11,9 +11,7 @@ func enter() -> void:
 
 
 func process_physics(delta: float) -> State:
-	#if get_when_shield_cooldown_timer() <= 0:
 	if get_can_shield():
-		#if get_is_shield_button_held():
 		if get_shield():
 			return shield_active_state
 		return shield_deactivated_state

@@ -9,14 +9,8 @@ func enter() -> void:
 
 
 func process_physics(delta: float) -> State:
-	#if get_is_shield_button_pressed():
-		#return shield_activated
-	
 	if get_shield():
 		return shield_activated
-	
-	#if get_is_shoot_button_pressed():
-		#shoot_and_set()
 	
 	if get_can_shoot():
 		if !get_shoot():
@@ -29,9 +23,4 @@ func process_physics(delta: float) -> State:
 func shoot() -> void:
 	var bullet = parent.bullet.instantiate()
 	parent.owner.add_child(bullet)
-	bullet.position = parent.global_position + Vector2(0, 10)
-
-
-func shoot_and_set() -> void:
-	shoot()
-	get_set_bullet_cooldown_timer_to_start_time()
+	bullet.position = parent.global_position + (Vector2(0, 10) * parent.facing_direction)

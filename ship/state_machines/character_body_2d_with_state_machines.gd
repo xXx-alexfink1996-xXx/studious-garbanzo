@@ -1,6 +1,11 @@
 class_name CharacterBody2DWithStateMachines
 extends CharacterBody2D
 
+const UP = -1
+const DOWN = 1
+
+var facing_direction: float
+
 var active_state_machines: Array[StateMachine] = []
 
 

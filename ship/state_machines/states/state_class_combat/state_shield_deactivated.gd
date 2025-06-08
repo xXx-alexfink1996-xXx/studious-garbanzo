@@ -12,7 +12,6 @@ func enter() -> void:
 
 func process_physics(delta: float) -> State:
 	if get_can_shield():
-		#if get_is_shield_button_held():
 		if get_shield():
 			return shield_activated_state
 		return idle_state

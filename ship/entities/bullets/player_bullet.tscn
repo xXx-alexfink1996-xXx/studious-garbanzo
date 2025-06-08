@@ -37,7 +37,7 @@ size = Vector2(8, 8)
 
 [node name="PlayerBullet" type="StaticBody2D"]
 collision_layer = 2
-collision_mask = 5
+collision_mask = 4
 script = ExtResource("1_sek1o")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

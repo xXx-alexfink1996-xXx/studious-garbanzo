@@ -7,7 +7,6 @@ func enter() -> void:
 
 
 func process_input(event: InputEvent) -> State:
-	#if get_is_shield_button_released():
 	if !get_shield():
 		return shield_deactivated_state
 	return null

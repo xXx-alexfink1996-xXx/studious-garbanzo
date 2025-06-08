@@ -28,9 +28,8 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a2rgv"]
 size = Vector2(6, 6)
 
-[node name="EnemyBullet" type="StaticBody2D"]
-collision_layer = 0
-collision_mask = 0
+[node name="EnemyBullet" type="StaticBody2D" groups=["Enemy_bullet"]]
+collision_layer = 8
 script = ExtResource("1_tirjj")
 speed = 300
 

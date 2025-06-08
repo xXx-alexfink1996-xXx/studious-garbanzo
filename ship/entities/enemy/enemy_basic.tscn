@@ -54,10 +54,9 @@ bullet = ExtResource("2_utjig")
 
 [node name="SpriteAnimations" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_725u4")
-animation = &"explode"
+animation = &"idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_3ji4g")
 
 [node name="MovementStateMachine" parent="." node_paths=PackedStringArray("starting_state") instance=ExtResource("3_ioxy8")]

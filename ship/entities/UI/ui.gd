@@ -1,11 +1,23 @@
 extends Control
 
 @onready var score_label: Label = $MarginContainer/VBoxContainer/HBoxContainer/ScoreLabel
+@onready var time_label: Label = $MarginContainer/VBoxContainer/HBoxContainer/TimeLabel
 
-func _ready() -> void:	
-	var enemy = get_node("EnemyBasic")
-	enemy.enemy_died.connect(_update_score)
+var score: int
+var time: float
 
 
-func _update_score() -> void:
-	print("hello")
+func _ready() -> void:
+	score = 0
+	time = 999
+
+
+func _process(delta: float) -> void:
+	time -= delta * 2
+	
+	score_label.text = "Score: %d" %score
+	time_label.text = "Time: %03d" %time
+
+
+func score_update(points: int) -> void:
+	score += points

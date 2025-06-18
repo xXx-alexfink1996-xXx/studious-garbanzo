@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://7ctd7tgiod3q"]
+[gd_scene load_steps=7 format=3 uid="uid://7ctd7tgiod3q"]
 
 [ext_resource type="PackedScene" uid="uid://cyj4pbojobbjf" path="res://entities/player/player.tscn" id="1_2262g"]
 [ext_resource type="PackedScene" uid="uid://byd5xiklx036a" path="res://entities/UI/ui.tscn" id="1_l8qe7"]
+[ext_resource type="Script" uid="uid://cpkvm5gqlpv45" path="res://levels/_level_class.gd" id="1_m1504"]
 [ext_resource type="PackedScene" uid="uid://cc3vkfkv0mmpm" path="res://entities/enemy/enemy_basic.tscn" id="2_wdj6m"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wdj6m"]
@@ -10,7 +11,9 @@ size = Vector2(10, 342.5)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l8qe7"]
 size = Vector2(21, 337)
 
-[node name="main" type="Node"]
+[node name="main" type="Node" node_paths=PackedStringArray("ui")]
+script = ExtResource("1_m1504")
+ui = NodePath("UI")
 
 [node name="player" parent="." instance=ExtResource("1_2262g")]
 position = Vector2(82, 300)
@@ -33,3 +36,4 @@ position = Vector2(189.5, 162.5)
 shape = SubResource("RectangleShape2D_l8qe7")
 
 [node name="UI" parent="." instance=ExtResource("1_l8qe7")]
+z_index = 1

@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Ship"
-run/main_scene="uid://7ctd7tgiod3q"
+run/main_scene="uid://ca1uubg85f0o7"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 

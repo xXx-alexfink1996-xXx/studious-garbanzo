@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=3 uid="uid://ca1uubg85f0o7"]
+
+[ext_resource type="FontFile" uid="uid://cpii7egkmdvan" path="res://src/fonts/m5x7.ttf" id="1_ae6xm"]
+[ext_resource type="Script" uid="uid://g4f6krv1jo4e" path="res://levels/start_screen.gd" id="1_ntpvs"]
+[ext_resource type="PackedScene" uid="uid://7ctd7tgiod3q" path="res://levels/main.tscn" id="2_qeg8x"]
+
+[sub_resource type="Theme" id="Theme_ntpvs"]
+default_font = ExtResource("1_ae6xm")
+default_font_size = 36
+
+[node name="StartScreen" type="Node"]
+script = ExtResource("1_ntpvs")
+main = ExtResource("2_qeg8x")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_ntpvs")
+
+[node name="MarginContainer" type="MarginContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "SHIP GAME"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "START"
+
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/Button" to="." method="_on_button_pressed"]

@@ -9,7 +9,6 @@ var time: float
 
 func _ready() -> void:
 	score = 0
-	time = 999
 
 
 func _process(delta: float) -> void:
@@ -21,3 +20,7 @@ func _process(delta: float) -> void:
 
 func score_update(points: int) -> void:
 	score += points
+
+
+func set_time_limit(time_limit: float) -> void:
+	time = time_limit

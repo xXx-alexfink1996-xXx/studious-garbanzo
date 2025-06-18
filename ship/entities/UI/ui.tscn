@@ -1,0 +1,42 @@
+[gd_scene load_steps=4 format=3 uid="uid://byd5xiklx036a"]
+
+[ext_resource type="FontFile" uid="uid://cpii7egkmdvan" path="res://src/fonts/m5x7.ttf" id="1_e7w8r"]
+[ext_resource type="Script" uid="uid://br7blbswsxqkp" path="res://entities/UI/ui.gd" id="1_tm8vf"]
+
+[sub_resource type="Theme" id="Theme_tm8vf"]
+default_font = ExtResource("1_e7w8r")
+
+[node name="UI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_tm8vf")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_tm8vf")
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="ScoreText" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Score:"
+
+[node name="ScoreLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "0"

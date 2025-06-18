@@ -14,10 +14,14 @@ extends CharacterBody2DWithStateMachines
 
 @export var bullet : PackedScene
 
-@export var move_speed: float = 100
+@export var active_move_speed: float = 100
 @export var bullet_cooldown: float = 0.4
 
 const bullet_collision_layer: int = 0b0010
+
+signal enemy_died(points)
+
+var point_value: int = 100
 
 
 func _ready() -> void:
@@ -65,5 +69,6 @@ func die() -> void:
 	sprite_animations.play("explode")
 	deactivate_state_machine(movement_state_machine)
 	deactivate_state_machine(combat_state_machine)
+	enemy_died.emit(point_value)
 	await get_tree().create_timer(1).timeout
 	queue_free()

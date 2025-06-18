@@ -8,6 +8,7 @@ func enter() -> void:
 	#3 frames at 5fps
 	#get_set_shield_cooldown_timer(get_shield_cooldown_start_time())
 	get_reset_shield_cooldown(parent.shield_cooldown)
+	parent.is_shielding = true
 
 
 func process_physics(delta: float) -> State:

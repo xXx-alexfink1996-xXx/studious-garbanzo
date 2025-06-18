@@ -8,7 +8,7 @@ func enter() -> void:
 
 
 func process_physics(delta: float) -> State:
-	var movement = get_movement_input() * parent.move_speed
+	var movement = get_movement_input() * parent.active_move_speed
 	
 	if movement == 0:
 		return idle_state

@@ -8,6 +8,7 @@ func enter() -> void:
 	super()
 	#3 frames at 5fps
 	get_reset_shield_cooldown(parent.shield_cooldown)
+	parent.is_shielding = false
 
 
 func process_physics(delta: float) -> State:

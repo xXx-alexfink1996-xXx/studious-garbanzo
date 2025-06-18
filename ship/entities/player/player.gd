@@ -14,14 +14,20 @@ extends CharacterBody2DWithStateMachines
 @export var bullet : PackedScene
 
 @export var move_speed: float = 100
+@export var shield_move_speed: float = 25
 @export var bullet_cooldown: float = 0.4
 @export var shield_cooldown: float = 0.6
 
 const bullet_collision_layer: int = 0b1000
 
+var active_move_speed: float = 100
+var is_shielding: bool
+
 
 func _ready() -> void:
 	facing_direction = UP
+	
+	active_move_speed = move_speed
 	
 	movement_state_machine.init(
 		self,
@@ -55,6 +61,11 @@ func _unhandled_input(event: InputEvent) -> void:
 func _physics_process(delta: float) -> void:
 	_to_state_machine_physics_process(delta)
 	
+	if is_shielding:
+		active_move_speed = shield_move_speed
+	else:
+		active_move_speed = move_speed
+	
 	#If you just have move_and_slide on the move state,
 	#it won't update unless you're moving.
 	#Movement component must also be active
@@ -65,7 +76,8 @@ func _physics_process(delta: float) -> void:
 		var collision = get_slide_collision(i)
 		if collision.get_collider().is_in_group("Enemy_bullet"):
 			collision.get_collider().queue_free()
-			die()
+			if !is_shielding:
+				die()
 
 
 func _process(delta: float) -> void:
